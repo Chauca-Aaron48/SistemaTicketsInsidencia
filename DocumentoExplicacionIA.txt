@@ -12,3 +12,9 @@ ejemplos de código sobre sentencias preparadas, ejecución de consultas y
 verificación de resultados, los cuales fueron adaptados al sistema desarrollado.
 
 -------------------------------------------------------------------------------------
+
+Documento: registrar.php
+Herramienta utilizada: ChatGPT.
+Justificacion: Se utilizo para definir el flujo de validacion, manejo de sesion y redireccion
+segun los codigos de estado (201/400/500), y para estructurar el formulario de registro de
+incidencias con insercion segura en base de datos.
