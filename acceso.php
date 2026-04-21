@@ -3,7 +3,7 @@
 require_once 'ConexionDB.php';
 
 $conexionBD = new ConexionDB();
-$conexionLogin = $conexionBD->getConexion();
+$conexionLogin = $conexionBD->getConnection();
 
 session_start();
 
