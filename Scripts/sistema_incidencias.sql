@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2026 at 10:21 PM
+-- Generation Time: Apr 22, 2026 at 03:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,6 +52,25 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `usuario`, `clave`, `nombre`) VALUES
+(1, 'admin_web', 'p@ssword_2026', 'Pedro Páramo'),
+(2, 'admin_web', 'p@ssword_2026', 'Pedro Páramo'),
+(3, 'g_web_Anibal', 'inci2026@', 'Anibal Cruz'),
+(4, 'jFloresPam', '2026@flores', 'Juanes Flores'),
+(5, 'svalen78', 'web2026@', 'Valentina Sandobalin'),
+(6, 'carlos.sanchez23', '@apps_web2026', 'Carlos Sánchez'),
+(7, 'ana_torres87', 'fis@2026', 'Ana Torres'),
+(8, 'admin_web', 'p@ssword_2026', 'Pedro Páramo'),
+(9, 'g_web_Anibal', 'inci2026@', 'Anibal Cruz'),
+(10, 'jFloresPam', '2026@flores', 'Juanes Flores'),
+(11, 'svalen78', 'web2026@', 'Valentina Sandobalin'),
+(12, 'carlos.sanchez23', '@apps_web2026', 'Carlos Sánchez'),
+(13, 'ana_torres87', 'fis@2026', 'Ana Torres');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -82,7 +101,7 @@ ALTER TABLE `incidencia`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
