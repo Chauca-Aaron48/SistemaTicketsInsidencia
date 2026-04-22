@@ -1,10 +1,10 @@
 <?php
 
-require_once 'ConexionDB.php';
+require_once 'Incidencia.php';
 
 session_start();
 
-if (!isset($_SESSION['usuario']) && !isset($_SESSION['clave'])) {
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['clave'])) {
 	header('Location: index.php');
 	exit();
 }
@@ -26,12 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	try {
-		$conexionBD = new ConexionDB();
-		$conexion = $conexionBD->getConnection();
-
-		$sql = 'INSERT INTO incidencia (titulo, descripcion, prioridad, id_usuario) VALUES (?, ?, ?, ?)';
-		$stmt = $conexion->prepare($sql);
-		$ok = $stmt->execute([$titulo, $descripcion, $prioridad, $_SESSION['id_usuario']]);
+		$ok = Incidencia::registrarIncidencia($titulo, $descripcion, $prioridad, $_SESSION['id_usuario']);
 
 		if ($ok) {
 			header('Location: 201.php');

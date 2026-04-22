@@ -1,31 +1,27 @@
 <?php
-require_once 'ConexionDB.php';
+require_once 'Usuario.php';
 
 session_start();
-
-$conexionBD = new ConexionDB();
-$conexionLogin = $conexionBD->getConnection();
 
 if (!isset($_POST['usuario']) || !isset($_POST["clave"])) {
     http_response_code(400);
 } else {
-
     $usuario = $_POST['usuario'];
     $clave = $_POST['clave'];
 
-    $sql = "SELECT * FROM usuario WHERE usuario = ? AND clave = ?";
+    try {
+        $usuarioValido = Usuario::validarCredenciales($usuario, $clave);
 
-    $stmt = $conexionLogin->prepare($sql);
-    $stmt->execute([$usuario, $clave]);
-    $resultado = $stmt->fetchAll();
-
-    if (count($resultado) == 1) {
-        $_SESSION['usuario'] = $usuario;
-        $_SESSION['clave'] = $clave;
-        $_SESSION['nombre'] = $resultado[0]['nombre'];
-        $_SESSION['id_usuario'] = $resultado[0]['id'];
-        header("Location: listar.php");
-        exit();
+        if ($usuarioValido) {
+            $_SESSION['usuario'] = $usuario;
+            $_SESSION['clave'] = $clave;
+            $_SESSION['nombre'] = $usuarioValido['nombre'];
+            $_SESSION['id_usuario'] = $usuarioValido['id'];
+            header("Location: listar.php");
+            exit();
+        }
+    } catch (Exception $e) {
+        http_response_code(500);
     }
 }
 

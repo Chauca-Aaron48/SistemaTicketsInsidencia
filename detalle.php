@@ -1,22 +1,25 @@
 <?php
-require_once "ConexionDB.php";
+require_once "Incidencia.php";
 
 session_start();
-if (!isset($_SESSION["usuario"]) && !isset($_SESSION["clave"])) {
+if (!isset($_SESSION["usuario"]) || !isset($_SESSION["clave"])) {
     header("Location: index.php");
     exit();
 }
 
 $usuarioLoggeado = $_SESSION["id_usuario"];
 
-$conexionBD = new ConexionDB();
+try {
+    $incidencia = Incidencia::obtenerIncidenciaPorId($_GET['id'], $usuarioLoggeado);
 
-$db = $conexionBD->getConnection();
-
-$sql = "SELECT id, titulo, descripcion, prioridad FROM incidencia WHERE id_usuario = ? AND id = ?";
-$stmt = $db->prepare($sql);
-$stmt->execute([$usuarioLoggeado, $_GET['id']]);
-$incidencia = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$incidencia) {
+        header("Location: listar.php");
+        exit();
+    }
+} catch (Exception $e) {
+    header("Location: 500.php");
+    exit();
+}
 
 ?>
 

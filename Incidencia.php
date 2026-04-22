@@ -1,14 +1,8 @@
 <?php
-session_start();
+require_once 'ConexionDB.php';
 
-if (!isset($_SESSION['usuario']) && !isset($_SESSION['clave'])) {
-    header("Location: index.php");
-    exit();
-}
-
-require_once 'ConexionBD.php';
 /**
- * Clase que representa una persona.
+ * Clase que centraliza toda la lógica de incidencias en la BD
  */
 class Incidencia
 {
@@ -85,65 +79,55 @@ class Incidencia
             " | prioridad: " . $this->getPrioridad();
     }
 
-    # Métodos de incidencias
+    # Métodos de BD para incidencias
 
-    public function crear()
+    /**
+     * Registra una nueva incidencia en la BD
+     */
+    public static function registrarIncidencia($titulo, $descripcion, $prioridad, $id_usuario)
     {
-        $sql = "INSERT INTO incidencia (id_usuario, titulo, descripcion, prioridad) VALUES (?, ?, ?, ?)";
+        $sql = 'INSERT INTO incidencia (titulo, descripcion, prioridad, id_usuario) VALUES (?, ?, ?, ?)';
 
         try {
             $conn = new ConexionDB();
             $stmt = $conn->getConnection()->prepare($sql);
-            $stmt->execute([$this->getIdUsuario(), $this->getTitulo(), $this->getDescripcion(), $this->getPrioridad()]);
-
-            // Configurar el valor del id de la nueva persona.
-            $this->setId($conn->getConnection()->lastInsertId());
+            return $stmt->execute([$titulo, $descripcion, $prioridad, $id_usuario]);
         } catch (PDOException $e) {
-            throw new Exception("Error al insertar persona: " . $e->getMessage());
+            throw new Exception("Error al registrar incidencia: " . $e->getMessage());
         }
     }
 
-    public function consultarPorIdIncidencia($id)
+    /**
+     * Obtiene todas las incidencias de un usuario
+     */
+    public static function obtenerIncidenciasPorUsuario($id_usuario)
     {
-        $sql = "SELECT * FROM incidencia WHERE id = ?";
+        $sql = "SELECT id, titulo, descripcion, prioridad FROM incidencia WHERE id_usuario = ?";
 
         try {
             $conn = new ConexionDB();
             $stmt = $conn->getConnection()->prepare($sql);
-            $stmt->execute([$id]);
-
-            $fila = $stmt->fetch();
-            if ($fila) {
-                $incidencia = new Incidencia($fila['id_usuario'], $fila['titulo'], $fila['descripcion'], $fila['prioridad']);
-                $incidencia->setId($fila['id']);
-            } else {
-                return null;
-            }
-        } catch (PDOException $e) {
-            throw new Exception("Error al consultar persona por id: " . $e->getMessage());
-        }
-    }
-
-
-    public function obtenerTodasIncidencias()
-    {
-        $sql = "SELECT * FROM incidencia";
-
-        try {
-            $cnn = new ConexionDB();
-            $stmt = $cnn->getConnection()->prepare($sql);
-            $stmt->execute();
-
-            $filas = $stmt->fetchAll();
-            $incidencias = [];
-            foreach ($filas as $fila) {
-                $incidencia = new Incidencia($fila['id_usuario'], $fila['titulo'], $fila['descripcion'], $fila['prioridad']);
-                $incidencia->setId($fila['id']);
-                $incidencias[] = $incidencia;
-            }
-            return $incidencias;
+            $stmt->execute([$id_usuario]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new Exception("Error al obtener incidencias: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Obtiene una incidencia específica
+     */
+    public static function obtenerIncidenciaPorId($id, $id_usuario)
+    {
+        $sql = "SELECT id, titulo, descripcion, prioridad FROM incidencia WHERE id = ? AND id_usuario = ?";
+
+        try {
+            $conn = new ConexionDB();
+            $stmt = $conn->getConnection()->prepare($sql);
+            $stmt->execute([$id, $id_usuario]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener incidencia: " . $e->getMessage());
         }
     }
 
