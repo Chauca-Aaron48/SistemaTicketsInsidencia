@@ -10,7 +10,8 @@ if (!isset($_POST['usuario']) || !isset($_POST["clave"])) {
     $clave = $_POST['clave'];
 
     try {
-        $usuarioValido = Usuario::validarCredenciales($usuario, $clave);
+        $usuarioObj = new Usuario($usuario, $clave);
+        $usuarioValido = $usuarioObj->validar();
 
         if ($usuarioValido) {
             $_SESSION['usuario'] = $usuario;

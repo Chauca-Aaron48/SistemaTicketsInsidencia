@@ -11,7 +11,8 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['clave'])) {
 $usuarioLogeado = $_SESSION['id_usuario'];
 
 try {
-    $incidencias = Incidencia::obtenerIncidenciasPorUsuario($usuarioLogeado);
+    $incidencia = new Incidencia($usuarioLogeado, null, null, null);
+    $incidencias = $incidencia->obtenerIncidencias();
 } catch (Exception $e) {
     header("Location: 500.php");
     exit();

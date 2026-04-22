@@ -82,32 +82,32 @@ class Incidencia
     # Métodos de BD para incidencias
 
     /**
-     * Registra una nueva incidencia en la BD
+     * Registra la incidencia actual en la BD
      */
-    public static function registrarIncidencia($titulo, $descripcion, $prioridad, $id_usuario)
+    public function registrar()
     {
         $sql = 'INSERT INTO incidencia (titulo, descripcion, prioridad, id_usuario) VALUES (?, ?, ?, ?)';
 
         try {
             $conn = new ConexionDB();
             $stmt = $conn->getConnection()->prepare($sql);
-            return $stmt->execute([$titulo, $descripcion, $prioridad, $id_usuario]);
+            return $stmt->execute([$this->titulo, $this->descripcion, $this->prioridad, $this->id_usuario]);
         } catch (PDOException $e) {
             throw new Exception("Error al registrar incidencia: " . $e->getMessage());
         }
     }
 
     /**
-     * Obtiene todas las incidencias de un usuario
+     * Obtiene todas las incidencias del usuario actual
      */
-    public static function obtenerIncidenciasPorUsuario($id_usuario)
+    public function obtenerIncidencias()
     {
         $sql = "SELECT id, titulo, descripcion, prioridad FROM incidencia WHERE id_usuario = ?";
 
         try {
             $conn = new ConexionDB();
             $stmt = $conn->getConnection()->prepare($sql);
-            $stmt->execute([$id_usuario]);
+            $stmt->execute([$this->id_usuario]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new Exception("Error al obtener incidencias: " . $e->getMessage());
@@ -115,16 +115,16 @@ class Incidencia
     }
 
     /**
-     * Obtiene una incidencia específica
+     * Obtiene una incidencia específica por ID
      */
-    public static function obtenerIncidenciaPorId($id, $id_usuario)
+    public function obtenerPorId($id)
     {
         $sql = "SELECT id, titulo, descripcion, prioridad FROM incidencia WHERE id = ? AND id_usuario = ?";
 
         try {
             $conn = new ConexionDB();
             $stmt = $conn->getConnection()->prepare($sql);
-            $stmt->execute([$id, $id_usuario]);
+            $stmt->execute([$id, $this->id_usuario]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new Exception("Error al obtener incidencia: " . $e->getMessage());

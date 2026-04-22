@@ -10,7 +10,8 @@ if (!isset($_SESSION["usuario"]) || !isset($_SESSION["clave"])) {
 $usuarioLoggeado = $_SESSION["id_usuario"];
 
 try {
-    $incidencia = Incidencia::obtenerIncidenciaPorId($_GET['id'], $usuarioLoggeado);
+    $incidencia = new Incidencia($usuarioLoggeado, null, null, null);
+    $incidencia = $incidencia->obtenerPorId($_GET['id']);
 
     if (!$incidencia) {
         header("Location: listar.php");

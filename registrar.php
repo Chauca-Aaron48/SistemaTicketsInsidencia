@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	try {
-		$ok = Incidencia::registrarIncidencia($titulo, $descripcion, $prioridad, $_SESSION['id_usuario']);
+		$incidencia = new Incidencia($_SESSION['id_usuario'], $titulo, $descripcion, $prioridad);
+		$ok = $incidencia->registrar();
 
 		if ($ok) {
 			header('Location: 201.php');

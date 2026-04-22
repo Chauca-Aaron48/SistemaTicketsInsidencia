@@ -6,20 +6,27 @@ require_once 'ConexionDB.php';
  */
 class Usuario
 {
+    private $usuario;
+    private $clave;
+
+    public function __construct($usuario, $clave)
+    {
+        $this->usuario = $usuario;
+        $this->clave = $clave;
+    }
+
     /**
-     * Valida las credenciales del usuario
-     * @param string $usuario
-     * @param string $clave
+     * Valida las credenciales del usuario actual
      * @return array|null - Array con datos del usuario si es válido, null si no
      */
-    public static function validarCredenciales($usuario, $clave)
+    public function validar()
     {
         $sql = "SELECT * FROM usuario WHERE usuario = ? AND clave = ?";
 
         try {
             $conn = new ConexionDB();
             $stmt = $conn->getConnection()->prepare($sql);
-            $stmt->execute([$usuario, $clave]);
+            $stmt->execute([$this->usuario, $this->clave]);
             $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if (count($resultado) == 1) {
