@@ -44,9 +44,7 @@ CREATE TABLE `incidencia` (
 
 INSERT INTO `incidencia` (`id`, `id_usuario`, `titulo`, `descripcion`, `prioridad`) VALUES
 (1, 7, 'Error en exportación a PDF', 'Al exportar un reporte a PDF, el archivo se descarga vacío o con datos incompletos.', 'Media'),
-(2, 12, 'Calculos realizados incorrectos', 'La suma de los detalles de la factura debería ser $100, pero el sistema\r\nmuestra $110.', 'Alta'),
-(3, 7, 'Error en exportación a PDF', 'Al exportar un reporte a PDF, el archivo se descarga vacío o con datos incompletos.', 'Media'),
-(4, 12, 'Calculos realizados incorrectos', 'La suma de los detalles de la factura debería ser $100, pero el sistema\r\nmuestra $110.', 'Alta');
+(2, 6, 'Calculos realizados incorrectos', 'La suma de los detalles de la factura debería ser $100, pero el sistema muestra $110.', 'Alta');
 
 -- --------------------------------------------------------
 
@@ -67,18 +65,11 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `usuario`, `clave`, `nombre`) VALUES
 (1, 'admin_web', 'p@ssword_2026', 'Pedro Páramo'),
-(2, 'admin_web', 'p@ssword_2026', 'Pedro Páramo'),
 (3, 'g_web_Anibal', 'inci2026@', 'Anibal Cruz'),
 (4, 'jFloresPam', '2026@flores', 'Juanes Flores'),
 (5, 'svalen78', 'web2026@', 'Valentina Sandobalin'),
 (6, 'carlos.sanchez23', '@apps_web2026', 'Carlos Sánchez'),
-(7, 'ana_torres87', 'fis@2026', 'Ana Torres'),
-(8, 'admin_web', 'p@ssword_2026', 'Pedro Páramo'),
-(9, 'g_web_Anibal', 'inci2026@', 'Anibal Cruz'),
-(10, 'jFloresPam', '2026@flores', 'Juanes Flores'),
-(11, 'svalen78', 'web2026@', 'Valentina Sandobalin'),
-(12, 'carlos.sanchez23', '@apps_web2026', 'Carlos Sánchez'),
-(13, 'ana_torres87', 'fis@2026', 'Ana Torres');
+(7, 'ana_torres87', 'fis@2026', 'Ana Torres');
 
 --
 -- Indexes for dumped tables
@@ -105,13 +96,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `incidencia`
 --
 ALTER TABLE `incidencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -121,7 +112,7 @@ ALTER TABLE `usuarios`
 -- Constraints for table `incidencia`
 --
 ALTER TABLE `incidencia`
-  ADD CONSTRAINT `incidencia_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
+  ADD CONSTRAINT `incidencia_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
