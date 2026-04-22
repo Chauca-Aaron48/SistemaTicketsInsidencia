@@ -13,7 +13,7 @@ $conexionBD = new ConexionDB();
 
 $db = $conexionBD->getConnection();
 
-$sql = "SELECT id, nombre, descripcion, prioridad FROM incidencia WHERE id_usuario = ? AND id = ?";
+$sql = "SELECT id, titulo, descripcion, prioridad FROM incidencia WHERE id_usuario = ? AND id = ?";
 $stmt = $db->prepare($sql);
 $stmt->execute([$usuarioLoggeado, $_GET['id']]);
 $incidencia = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -34,18 +34,18 @@ $incidencia = $stmt->fetch(PDO::FETCH_ASSOC);
     <header>
         <h6><a href="cerrar_sesion.php">Cerrar Sesión</a></h6>
     </header>
+    
+    <h1>Usuario loggeado: <?php echo $_SESSION['nombre']; ?></h1>
 
-    <h1>Detalle de la Incidencia</h1>
+    <h2>Detalle de la Incidencia</h2>
 
 
-    <h3>Usuario loggeado: </h3>
-    <p><?php echo $_SESSION['nombre']; ?></p>
 
     <table border="1" cellpadding="10">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
+                <th>Titulo</th>
                 <th>Descripción</th>
                 <th>Prioridad</th>
             </tr>
@@ -54,7 +54,7 @@ $incidencia = $stmt->fetch(PDO::FETCH_ASSOC);
 
             <tr>
                 <td><?php echo htmlspecialchars($incidencia['id']); ?></td>
-                <td><?php echo htmlspecialchars($incidencia['nombre']); ?></td>
+                <td><?php echo htmlspecialchars($incidencia['titulo']); ?></td>
                 <td><?php echo htmlspecialchars($incidencia['descripcion']); ?></td>
                 <td><?php echo htmlspecialchars($incidencia['prioridad']); ?></td>
             </tr>

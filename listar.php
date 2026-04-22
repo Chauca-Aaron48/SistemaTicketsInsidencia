@@ -13,7 +13,7 @@ $usuarioLogeado = $_SESSION['id_usuario'];
 $conexionBD = new ConexionDB();
 $db = $conexionBD->getConnection();
 
-$sql = "SELECT id, nombre, descripcion, prioridad FROM incidencia WHERE id_usuario = ?";
+$sql = "SELECT id, titulo, descripcion, prioridad FROM incidencia WHERE id_usuario = ?";
 $stmt = $db->prepare($sql);
 $stmt->execute([$usuarioLogeado]);
 $incidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -50,7 +50,7 @@ $incidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tbody>
                 <?php foreach ($incidencias as $incidencia): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($incidencia['nombre']); ?></td>
+                        <td><?php echo htmlspecialchars($incidencia['titulo']); ?></td>
                         <td><?php echo htmlspecialchars($incidencia['descripcion']); ?></td>
                         <td><?php echo htmlspecialchars($incidencia['prioridad']); ?></td>
                         <td>
