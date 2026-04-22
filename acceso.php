@@ -13,7 +13,7 @@ if(!isset($_POST['usuario']) || !isset($_POST["clave"])){
     $usuario = $_POST['usuario'];
     $clave = $_POST['clave']; 
 
-    $sql = "SELECT * FROM usuarios WHERE usuario = ? AND clave = ?";
+    $sql = "SELECT * FROM usuario WHERE usuario = ? AND clave = ?";
 
     $stmt = $conexionLogin->prepare($sql);
     $stmt->execute([$usuario, $clave]);
