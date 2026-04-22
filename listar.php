@@ -42,8 +42,6 @@ $incidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <thead>
                 <tr>
                     <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Prioridad</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -51,8 +49,6 @@ $incidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($incidencias as $incidencia): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($incidencia['titulo']); ?></td>
-                        <td><?php echo htmlspecialchars($incidencia['descripcion']); ?></td>
-                        <td><?php echo htmlspecialchars($incidencia['prioridad']); ?></td>
                         <td>
                             <a href="detalle.php?id=<?php echo urlencode($incidencia['id']); ?>">
                                 Ver detalle
