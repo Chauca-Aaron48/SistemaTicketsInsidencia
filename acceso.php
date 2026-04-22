@@ -1,31 +1,29 @@
 <?php
 require_once 'ConexionDB.php';
 
+session_start();
+
 $conexionBD = new ConexionDB();
 $conexionLogin = $conexionBD->getConnection();
 
-session_start();
-if(!isset($_POST['nombre']) || !isset($_POST["clave"])){
+if(!isset($_POST['usuario']) || !isset($_POST["clave"])){
     http_response_code(400);
 }else{
 
-    $nombre = $_POST['nombre'];
+    $usuario = $_POST['usuario'];
     $clave = $_POST['clave']; 
 
-    $sql = "SELECT * FROM usuario WHERE nombre = ? AND clave = ?";
+    $sql = "SELECT * FROM usuarios WHERE usuario = ? AND clave = ?";
 
     $stmt = $conexionLogin->prepare($sql);
-    $stmt->execute([$nombre, $clave]);
+    $stmt->execute([$usuario, $clave]);
     $resultado = $stmt->fetchAll();
 
     if (count($resultado) == 1) {
-        $_SESSION['nombre'] = $nombre;
+        $_SESSION['usuario'] = $usuario;
         $_SESSION['clave'] = $clave;
+        $_SESSION['nombre'] = $resultado[0]['nombre'];
         header("Location: listar.php");
-        exit();
-    } else {
-        http_response_code(400);
-        header("Location: 400.php");
         exit();
     }
 }
@@ -41,7 +39,7 @@ if(!isset($_POST['nombre']) || !isset($_POST["clave"])){
 </head>
 <body>
     <h1>Error 400: Bad Request</h1>
-    <p>Los datos proporcionados son incorrectos, están incompletos o no existe el usuario ingresado.</p>
+    <p>Credenciales incorrectas.</p>
     <p><a href="index.php">Volver al inicio de sesión</a></p>
 </body>
 </html>
