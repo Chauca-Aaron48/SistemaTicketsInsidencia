@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['clave'])) {
+    header("Location: index.php");
+    exit();
+}
+
 require_once 'ConexionBD.php';
 /**
  * Clase que representa una persona.
@@ -118,14 +125,15 @@ class Incidencia
     }
 
 
-    	public function obtenerTodasIncidencias(){
-		 $sql = "SELECT * FROM incidencia";
-        
+    public function obtenerTodasIncidencias()
+    {
+        $sql = "SELECT * FROM incidencia";
+
         try {
-			$cnn = new ConexionDB();
+            $cnn = new ConexionDB();
             $stmt = $cnn->getConnection()->prepare($sql);
             $stmt->execute();
-            
+
             $filas = $stmt->fetchAll();
             $incidencias = [];
             foreach ($filas as $fila) {
@@ -137,6 +145,6 @@ class Incidencia
         } catch (PDOException $e) {
             throw new Exception("Error al obtener incidencias: " . $e->getMessage());
         }
-	}
+    }
 
 }
