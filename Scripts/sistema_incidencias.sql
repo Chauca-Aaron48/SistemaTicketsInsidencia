@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2026 at 03:09 AM
+-- Generation Time: Apr 22, 2026 at 03:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,6 +37,16 @@ CREATE TABLE `incidencia` (
   `descripcion` text NOT NULL,
   `prioridad` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `incidencia`
+--
+
+INSERT INTO `incidencia` (`id`, `id_usuario`, `titulo`, `descripcion`, `prioridad`) VALUES
+(1, 7, 'Error en exportación a PDF', 'Al exportar un reporte a PDF, el archivo se descarga vacío o con datos incompletos.', 'Media'),
+(2, 12, 'Calculos realizados incorrectos', 'La suma de los detalles de la factura debería ser $100, pero el sistema\r\nmuestra $110.', 'Alta'),
+(3, 7, 'Error en exportación a PDF', 'Al exportar un reporte a PDF, el archivo se descarga vacío o con datos incompletos.', 'Media'),
+(4, 12, 'Calculos realizados incorrectos', 'La suma de los detalles de la factura debería ser $100, pero el sistema\r\nmuestra $110.', 'Alta');
 
 -- --------------------------------------------------------
 
@@ -95,7 +105,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `incidencia`
 --
 ALTER TABLE `incidencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
