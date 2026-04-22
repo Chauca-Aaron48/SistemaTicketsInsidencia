@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['nombre'])) {
+if (isset($_SESSION['usuario']) && isset($_SESSION['clave'])) {
     header("Location: listar.php");
     exit();
 }
@@ -19,8 +19,8 @@ if (isset($_SESSION['nombre'])) {
     <form action="acceso.php" method="post">
         <fieldset>
             <legend>Inicio de Sesión</legend>
-            <label for="nombre">Usuario:</label><br>
-            <input type="text" name="nombre" id="nombre" placeholder="Ingrese su usuario" required>
+            <label for="usuario">Usuario:</label><br>
+            <input type="text" name="usuario" id="usuario" placeholder="Ingrese su usuario" required>
             <br>
             <label for="clave">Contraseña:</label><br>
             <input type="password" name="clave" id="clave" placeholder="Ingrese su contraseña" required>
