@@ -1,9 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION['usuario']) && !isset($_SESSION['clave'])) {
-    header("Location: index.php");
-    exit();
-}
 if (require_once 'ConexionDB.php') {
     http_response_code(500);
     if (!isset($_SESSION['usuario'])) {
@@ -28,6 +24,10 @@ if (require_once 'ConexionDB.php') {
         <?php
         exit();
     }
+}
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['clave'])) {
+    header("Location: index.php");
+    exit();
 }
 http_response_code(500);
 ?>
