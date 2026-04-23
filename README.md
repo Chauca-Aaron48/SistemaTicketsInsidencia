@@ -9,7 +9,7 @@
 
 **Herramienta utilizada:** ChatGPT
 
-**Justificación:** Se utilizó en las líneas 21–25 para investigar e implementar la validación con la base de datos de forma segura. El agente ChatGPT proporcionó ejemplos de código sobre sentencias preparadas, ejecución de consultas y verificación de resultados, los cuales fueron adaptados al sistema desarrollado.
+**Justificación:** Se utilizó para investigar e implementar la validación con la base de datos de forma segura. El agente ChatGPT proporcionó ejemplos de código sobre sentencias preparadas, ejecución de consultas y verificación de resultados, los cuales fueron adaptados al sistema desarrollado.
 
 ---
 
@@ -29,4 +29,4 @@
 
 **Herramienta utilizada:** Gemini
 
-**Justificación:** Se utilizó en las líneas 46-54 para implementar la lógica del `foreach` que itera sobre el arreglo de incidencias obtenidas de la base de datos. La IA proporcionó la estructura correcta para recorrer cada incidencia y renderizarla como una fila dentro de una tabla HTML, incluyendo medidas de seguridad como `htmlspecialchars()` y `urlencode()` para codificar correctamente el parámetro de ID en la URL de enlace al detalle. También se sugirió incluir la validación condicional `if (count($incidencias) > 0)` para mostrar un mensaje alternativo cuando no hay incidencias registradas.
+**Justificación:** Se utilizó para implementar la lógica del `foreach` que itera sobre el arreglo de incidencias obtenidas de la base de datos. La IA proporcionó la estructura correcta para recorrer cada incidencia y renderizarla como una fila dentro de una tabla HTML, incluyendo medidas de seguridad como `htmlspecialchars()` y `urlencode()` para codificar correctamente el parámetro de ID en la URL de enlace al detalle. También se sugirió incluir la validación condicional `if (count($incidencias) > 0)` para mostrar un mensaje alternativo cuando no hay incidencias registradas.
