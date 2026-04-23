@@ -1,26 +1,8 @@
 <?php
 
 if (php_sapi_name() !== 'cli' && basename($_SERVER['SCRIPT_FILENAME']) === 'ConexionDB.php') {
-    http_response_code(403);
-
-
-?>
-
-    <HTML>
-
-    <head></head>
-
-    <body>
-        <h1>403 - Acceso Denegado</h1>
-        <p>No tienes permiso para acceder a este recurso.</p>
-        <p><a href="index.php">Volver al inicio de sesión</a></p>
-    </body>
-
-    </HTML>
-
-<?php
-
-
+    header('Location: 403.php');
+    exit();
 }
 
 class ConexionDB
@@ -41,8 +23,8 @@ class ConexionDB
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            http_response_code(500);
-            die("Error de conexión a la base de datos: " . $e->getMessage());
+            header('Location: 500.php');
+            exit();
         }
     }
 
@@ -51,5 +33,8 @@ class ConexionDB
         return $this->pdo;
     }
 
-    public function insertarIncidencia($incidencia) {}
+    public function insertarIncidencia($incidencia)
+    {
+    }
 }
+?>

@@ -4,7 +4,7 @@ require_once 'Incidencia.php';
 
 session_start();
 
-if (!isset($_SESSION['usuario']) || !isset($_SESSION['clave'])) {
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['clave'])) {
 	header('Location: index.php');
 	exit();
 }

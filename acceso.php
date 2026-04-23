@@ -2,9 +2,9 @@
 require_once 'Usuario.php';
 
 session_start();
-
-if (!isset($_POST['usuario']) || !isset($_POST["clave"])) {
-    http_response_code(400);
+if (empty($_POST['usuario']) || empty($_POST["clave"])) {
+    header('Location: 401.php');
+    exit();
 } else {
     $usuario = $_POST['usuario'];
     $clave = $_POST['clave'];
@@ -22,25 +22,9 @@ if (!isset($_POST['usuario']) || !isset($_POST["clave"])) {
             exit();
         }
     } catch (Exception $e) {
-        http_response_code(500);
+        header('Location: 500.php');
+        exit();
     }
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error 400</title>
-</head>
-
-<body>
-    <h1>Error 400: Bad Request</h1>
-    <p>Credenciales incorrectas.</p>
-    <p><a href="index.php">Volver al inicio de sesión</a></p>
-</body>
-
-</html>
